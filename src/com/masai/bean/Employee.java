@@ -15,7 +15,13 @@ public class Employee {
 	
 	public Employee(int id,String name,String phoneNum,String email,String department,int salary){
 		
-		
+		super();
+		this.id = id;
+		this.name = name;
+		this.phoneNum = phoneNum;
+		this.email = email;
+		this.department = department;
+		this.salary = salary;
 	}
 
 	public int getId() {
