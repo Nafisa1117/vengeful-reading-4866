@@ -3,6 +3,7 @@ package com.masai.dao;
 import java.sql.Connection;
 
 import com.masai.bean.Employee;
+import com.masai.bean.EmployeeDTO;
 import com.masai.exceptions.CourseExceptions;
 import com.masai.exceptions.EmployeeException;
 
@@ -254,6 +255,47 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		
 		
 		
+	}
+	@Override
+	public List<EmployeeDTO> getAllEmployeesByCname(String cname) throws CourseExceptions {
+		// TODO Auto-generated method stub
+		List<EmployeeDTO> dtos = new ArrayList<>();
+		
+		
+		try(Connection conn = DBconnUtil.provideConnection()) {
+			PreparedStatement ps = conn.prepareStatement("select \r\n"
+					+ "s.id,s.name,s.email,c.cname,c.fee \r\n"
+					+ "from employee s INNER JOIN course c INNER JOIN course_employee cs\r\n"
+					+ "ON\r\n"
+					+ "s.id = sc.id AND c.cid = sc.cid AND c.cname = ?;");
+			
+			ps.setString(1, cname);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int r = rs.getInt("id");
+				String n = rs.getString("name");
+				String em = rs.getString("email");
+				
+				String cn = rs.getString("cname");
+				int f = rs.getInt("fee");
+			
+				EmployeeDTO dto = new EmployeeDTO(r, n, em, cn, f);
+				
+				dtos.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new CourseExceptions(e.getMessage());
+		}
+		
+		
+		if(dtos.isEmpty())
+			throw new CourseExceptions("NO EMployee Found ...");
+		
+		
+		return dtos;
 	}
 	
 	

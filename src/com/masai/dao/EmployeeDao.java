@@ -2,7 +2,9 @@ package com.masai.dao;
 
 import java.util.List;
 
+
 import com.masai.bean.Employee;
+import com.masai.bean.EmployeeDTO;
 import com.masai.exceptions.CourseExceptions;
 import com.masai.exceptions.EmployeeException;
 
@@ -29,4 +31,12 @@ public interface EmployeeDao {
 	//we are passing here 2 exceptions,suppose if Employee is not threr then EmployeeException and if course is not there then CourseException
 	public String registerEmployeeInsideACourse(int cid, int id)throws EmployeeException,CourseExceptions;
 	
+	//
+	//public List<EmployeeDTO> getAllEmployeesByCname(String cname)throws CourseExceptions;
+
+
+	public List<EmployeeDTO> getAllEmployeesByCname(String cname)throws CourseExceptions;
+	
+
+
 }

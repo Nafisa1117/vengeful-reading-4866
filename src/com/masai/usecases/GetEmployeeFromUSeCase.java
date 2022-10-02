@@ -1,33 +1,31 @@
 package com.masai.usecases;
 
+import java.util.List;
 import java.util.Scanner;
 
+import com.masai.bean.EmployeeDTO;
 import com.masai.dao.EmployeeDao;
 import com.masai.dao.EmployeeDaoImpl;
 
-public class AllocateEmployeeToCourse {
+public class GetEmployeeFromUSeCase {
 	
 	public static void main(String[] args) {
-		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter the cid");
-		int cid = sc.nextInt();
-		
-		System.out.println("Enter the id");
-		int id = sc.nextInt();
+		System.out.println("Enter Course Name");
+		String cname = sc.next();
 		
 		EmployeeDao dao = new EmployeeDaoImpl();
 		
 		try {
-			String result = dao.registerEmployeeInsideACourse(cid, id);
-			System.out.println(result);
+			List<EmployeeDTO> dtos = dao.getAllEmployeesByCname(cname);
+			
+			dtos.forEach(dto -> System.out.println(dto));
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
+	
 }
